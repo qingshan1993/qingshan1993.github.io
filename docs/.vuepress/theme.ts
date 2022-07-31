@@ -36,6 +36,7 @@ export default hopeTheme({
 
     mdEnhance: {
         enableAll: false,
+        codetabs: true,
         presentation: {
             plugins: ["highlight", "math", "search", "notes", "zoom"],
         },

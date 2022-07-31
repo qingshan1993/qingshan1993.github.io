@@ -92,5 +92,5 @@ features:
     link: https://vuepress-theme-hope.github.io/v2/guide/feature/
 
 copyright: false
-footer: MIT Licensed | Copyright © 2019-present Mr.Hope
+footer: MIT Licensed | Copyright © 2022-present qingshan1993
 ---

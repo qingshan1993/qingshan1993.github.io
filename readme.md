@@ -1,1 +1,1 @@
-##### 一个使用vuepress的博客,使用了vuepress-theme-hope主题
+##### 一个[vuepress](https://v2.vuepress.vuejs.org)的博客,使用了[vuepress-theme-hope](https://vuepress-theme-hope.github.io)主题
