@@ -102,5 +102,29 @@ public static <U> CompletableFuture<U> completedFuture(U value) {
 # xxx和xxxAsync
 在CompletableFuture中，我们会看到很多类似xxx和xxxAsync成对出现的方法，例如：thenRun和thenRunAsync，
 thenAccept和thenAcceptAsync，thenCombine和thenCombine等等。我们来看一下他们的区别
+::: code-tabs#java
+@tab xxx
 
+```java
+/* class：CompletableFutureDemo.java，method：test6()*/
+CompletableFuture
+        .completedFuture(null)
+        .thenRun(() -> System.out.println("thenRun 1:" + Thread.currentThread().getName()))
+        .thenRun(() -> System.out.println("thenRun 2:" + Thread.currentThread().getName()));
+//thenRun 1:main
+//thenRun 2:main
+```
 
+@tab xxxAsync
+
+```java
+/* class：CompletableFutureDemo.java，method：test7()*/
+CompletableFuture
+        .completedFuture(null)
+        .thenRunAsync(() -> System.out.println("thenRunAsync 1:" + Thread.currentThread().getName()))
+        .thenRunAsync(() -> System.out.println("thenRunAsync 2:" + Thread.currentThread().getName()));
+//thenRunAsync 1:ForkJoinPool.commonPool-worker-9
+//thenRunAsync 2:ForkJoinPool.commonPool-worker-9
+```
+:::
+在上面的两个例子中，我们使用completedFuture()静态方法作为任务的起点
