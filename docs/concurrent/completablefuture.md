@@ -127,4 +127,4 @@ CompletableFuture
 //thenRunAsync 2:ForkJoinPool.commonPool-worker-9
 ```
 :::
-在上面的两个例子中，我们使用completedFuture()静态方法作为任务的起点
+在上面的两个例子中，我们使用completedFuture()静态方法作为任务的起点，然后使用thenRun方法来编排任务，该方法接受一个Runable实例，我们这里仅仅打印出运行该任务的线程名称，从打印结果可以看出，带Async后缀的方法会使用线程池中的线程运行任务，不带后缀的会使用当前线程运行任务。
