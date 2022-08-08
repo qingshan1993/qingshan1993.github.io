@@ -80,7 +80,7 @@ completableFuture
 这足以说明，我们在使用CompletableFuture的使用，必须指定一个任务的起点。通常我们使用静态方法runAsync来作为任务的起点，这个方法还有一个重载方法，可以指定一个java.util.concurrent.Executor类型的实例对象，这意味着我们可以传入自定义的线程池对象。默认的，CompletableFuture使用的是ForkJoinPool.commonPool()。
 类似的我们还有一个supplyAsync静态方法，它接受一个Supplier的函数式接口类型参数，Supplier有一个返回值，和runAsync一样，他也提供一个重载方法。除此之外，CompletableFuture还有一个completedFuture的静态方法，它足够简单，我们只需要传入一个结果参数就好了。总结一下，作为CompletableFuture的任务起点，提供了以下5个**静态方法**：
 ```java
-
+//CompletableFuture.class
 public static CompletableFuture<Void> runAsync(Runnable runnable) {
     return asyncRunStage(asyncPool, runnable);
 }
@@ -128,3 +128,24 @@ CompletableFuture
 ```
 :::
 在上面的两个例子中，我们使用completedFuture()静态方法作为任务的起点，然后使用thenRun方法来编排任务，该方法接受一个Runable实例，我们这里仅仅打印出运行该任务的线程名称，从打印结果可以看出，带Async后缀的方法会使用线程池中的线程运行任务，不带后缀的会使用当前线程运行任务。
+
+# 处理异常
+与Future相比，CompletableTuture一个巨大的优势就是它可以处理异常，看下面的例子：
+```java
+/* class：CompletableFutureDemo.java，method：test8()*/
+final String name = "qingshan1993";
+CompletableFuture
+        .supplyAsync(() -> "Hello, ")
+        .thenApply(x -> { return x + name + ", ";})
+        .thenApply(x -> {
+            if (x.contains("qingshan1993")) {
+                return x + "welcome to study";
+            } else {
+                throw new IllegalArgumentException("must contains 'qingshan1993'");
+            }})
+        .exceptionally(ex-> "ERROR!")
+        .thenAccept(x -> System.out.println(x +" CompletableFuture"));
+//name=qingshan1993, result = Hello, qingshan1993, welcome to study CompletableFuture
+//name=qingshan, result = ERROR! CompletableFuture
+```
+在上面的例子中，我们使用thApply拼接一个字符串，这个方法接受一个Function接口参数，其中在其第三步拼接"welcome to study"时，我们做一个前阶段的结果字符串是否包含"qingshan1993"的简单的判断。如果不包含，抛出一个IllegalArgumentException，在接下来使用**exceptionally**方法处理异常，
