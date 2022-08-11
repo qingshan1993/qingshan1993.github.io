@@ -148,4 +148,6 @@ CompletableFuture
 //name=qingshan1993, result = Hello, qingshan1993, welcome to study CompletableFuture
 //name=qingshan, result = ERROR! CompletableFuture
 ```
-在上面的例子中，我们使用thApply拼接一个字符串，这个方法接受一个Function接口参数，其中在其第三步拼接"welcome to study"时，我们做一个前阶段的结果字符串是否包含"qingshan1993"的简单的判断。如果不包含，抛出一个IllegalArgumentException，在接下来使用**exceptionally**方法处理异常，
+在上面的例子中，我们使用thApply拼接一个字符串，这个方法接受一个Function接口参数，其中在其第三步拼接"welcome to study"时，我们做一个前阶段的结果字符串是否包含"qingshan1993"的简单的判断。如果不包含，抛出一个IllegalArgumentException，在接下来使用**exceptionally()**方法处理异常，处理异常后我们返回了"ERROR!"作为拼接字符串的前缀，这里如果我们不处理这个异常，那么在控制台也看不到相关的异常信息，因为这个异常信息实际被包装在AltResult这个结果包装类中。
+# thenCombine和thenAcceptBoth
+在上面几个例子中，我们已经提到了
